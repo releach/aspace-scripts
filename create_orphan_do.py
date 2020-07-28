@@ -7,7 +7,7 @@ import datetime
 do_csv = input('input csv: ')
 updated_do_csv = input('output csv: ')
 
-aspace_url = 'https://aspace-staff.fivecolleges.edu/api'
+aspace_url = input('api url: ')
 username = getpass.getuser()
 # getuser() checks the environment variables LOGNAME, USER, LNAME and USERNAME, in order, and returns the value of the first non-empty string.
 password = getpass.getpass(prompt='input password: ')
