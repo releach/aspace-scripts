@@ -16,7 +16,7 @@ datetime_formatted = datetime.strftime("%Y%b%d-%H%M%S")
 auth = requests.post(aspace_url + '/users/' + username + '/login?password=' + password).json()
 session = auth["session"]
 headers = {'X-ArchivesSpace-Session': session}
-logging.basicConfig(filename=(f'do_creation_error_{datetime_formatted}.log'), level=logging.DEBUG)
+logging.basicConfig(filename=(f'ao_creation_error_{datetime_formatted}.log'), level=logging.DEBUG)
 
 
 def post_ao():
@@ -38,7 +38,7 @@ def post_ao():
         "instances": [{"instance_type": "digital_object", "digital_object":
                       {"ref": "/repositories/2/digital_objects/" + digital_object}}],
         "level": level,  # Required field, controlled value
-        "language": lang,
+        "lang_materials": [{"language_and_script": {"language": lang}}],
         "title": title,  # Required field
         "resource": {"ref": resource_uri}
     }
@@ -61,7 +61,7 @@ def post_ao():
     ao_dict["children"] = array
     logging.debug(f"Debugging for {title}:")
     ao_post = requests.post(aspace_url + '/repositories/2' + archival_object_parent_uri + '/children', headers=headers, json=ao_dict).json()
-    print(ao_post)
+    # print(ao_post)
     if 'status' in ao_post.keys():
         print(f"Archival object for {title} posted successfully")
     if 'error' in ao_post.keys():
@@ -72,7 +72,7 @@ with open(ao_csv, newline="") as csvfile:
     reader = csv.DictReader(csvfile)
 
     for row in reader:
-        archival_object_parent_uri = row['ao_uri']
+        archival_object_parent_uri = row['ao_uri']  # full path to ao, eg '/archival_objects/30886'
 
         title = row['title']
         level = row['level'].lower()  # use controlled values, eg item, series, file
