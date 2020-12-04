@@ -50,12 +50,12 @@ for page in range(1, num_pages + 1):
         agent_row.append(names.get('rules', 'NULL'))
         agent_row.append(names.get('name_order', 'NULL'))
         agent_row.append(names.get('authority_id', 'NULL'))
-        agent_row.append(agent['created_by'])
-        agent_row.append(agent['last_modified_by'])
+        agent_row.append(agent['create_time'])
+        agent_row.append(agent['user_mtime'])
         agents.append(agent_row)
 
 csv_header = ['publish', 'uri', 'is_linked_to_published_record', 'full_name_aka_title', 'primary_name', 'title', 'prefix', 'rest_of_name',
-              'suffix', 'fuller_form', 'number', 'dates', 'sort_name', 'source', 'rules', 'name_order', 'authority_id', 'created_by', 'last_modified_by']
+              'suffix', 'fuller_form', 'number', 'dates', 'sort_name', 'source', 'rules', 'name_order', 'authority_id', 'create_time', 'user_modified_time']
 
 
 with open(csvfile, "w", newline="") as f:
