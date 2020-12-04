@@ -4,8 +4,8 @@ import logging
 import getpass
 import datetime
 
-## This python3 script generates a csv report of person agents in ArchivesSpace. 
-## To do: add argparse options for corporate, family, personal agents
+# This python3 script generates a csv report of person agents in ArchivesSpace.
+# To do: add argparse options for corporate, family, personal agents
 
 aspace_url = "https://aspace-staff.fivecolleges.edu/api"
 username = getpass.getuser()
@@ -50,10 +50,12 @@ for page in range(1, num_pages + 1):
         agent_row.append(names.get('rules', 'NULL'))
         agent_row.append(names.get('name_order', 'NULL'))
         agent_row.append(names.get('authority_id', 'NULL'))
+        agent_row.append(agent['created_by'])
+        agent_row.append(agent['last_modified_by'])
         agents.append(agent_row)
 
 csv_header = ['publish', 'uri', 'is_linked_to_published_record', 'full_name_aka_title', 'primary_name', 'title', 'prefix', 'rest_of_name',
-              'suffix', 'fuller_form', 'number', 'dates', 'sort_name', 'source', 'rules', 'name_order', 'authority_id']
+              'suffix', 'fuller_form', 'number', 'dates', 'sort_name', 'source', 'rules', 'name_order', 'authority_id', 'created_by', 'last_modified_by']
 
 
 with open(csvfile, "w", newline="") as f:
